@@ -7,23 +7,29 @@
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	包含linux和windows通用的头文件
 //-------------------------------------------------------------------------------------------------
+#pragma once
+#ifdef _WIN32
+#include <windows.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdarg.h>
 #include <list>
 #include <map>
 #include <vector>
 #include <assert.h>
-
-
-#ifdef _WIN32
-#include <windows.h>
+#include <minwindef.h>
 #include <time.h>
+
+
+
 #endif	// _WIN32
 
 #ifdef linux
-#include <stdarg.h>
 #include <errno.h>
 #include <sys/time.h>
 #include <pthread.h>
+// function backtrace is defined in execinfo.h
+#include <execinfo.h>
+
 
 #endif // linux

@@ -7,7 +7,7 @@
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	config of log
 //-------------------------------------------------------------------------------------------------
-
+#pragma once
 // DLL暂时不做
 #if defined(LOG_DLL)
 
@@ -26,3 +26,19 @@ typedef unsigned int _FILE_HANDLE;
 
 // 每条日志的最大长度， the max length of every log info
 #define LOG_INFO_MAX_LEN  10240
+
+// 字体颜色仅用于stdout
+// font color can only be used on stdout
+enum FontColor {
+	FC_BLACK	= 0,
+	FC_RED		= 1,
+	FC_GREEN	= 2,
+	FC_YELLOW	= 3,
+	FC_BLUE		= 4,
+	FC_MAGENTA	= 5,
+	FC_CYAN		= 6,
+	FC_WHITE	= 7,
+};
+
+// stdout 
+#define STDOUT_FILE_HANDLE 0

@@ -5,36 +5,38 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{9a27388c-3745-4d82-ba41-1294561dd84e}</UniqueIdentifier>
+    <Filter Include="log">
+      <UniqueIdentifier>{914ca479-275b-49a5-8525-13d979f1baf3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include">
-      <UniqueIdentifier>{5e233436-3172-44d6-865f-a219f7dccec1}</UniqueIdentifier>
+    <Filter Include="lock">
+      <UniqueIdentifier>{d058f8a1-772d-44a0-9934-2e65dcd39963}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\basetype.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\log_config.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\system.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\log.h">
-      <Filter>include</Filter>
+    <ClInclude Include="..\src\basetype.h" />
+    <ClInclude Include="..\src\system.h" />
+    <ClInclude Include="..\src\lock.h">
+      <Filter>lock</Filter>
     </ClInclude>
     <ClInclude Include="..\src\logfile.h">
-      <Filter>include</Filter>
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\log.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\log_config.h">
+      <Filter>log</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\log.c">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\logfile.cpp">
-      <Filter>src</Filter>
+      <Filter>log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lock.cpp">
+      <Filter>lock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\log.cpp">
+      <Filter>log</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

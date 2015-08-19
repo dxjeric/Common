@@ -9,7 +9,11 @@
 //-------------------------------------------------------------------------------------------------
 #include "system.h"
 #include "lock.h"
+#include "log_config.h"
 
+extern int FormatLogInfo(char* szDest, const char* szFormat, va_list vlArgs);
+extern void WriteInfoToStdout(FontColor fc, const char* szStr);
+extern int GetStackTrace(char* szStackTrace);
 
 class CLogFile
 {
@@ -18,24 +22,25 @@ public:
 	~CLogFile();
 
 public:
-	// 使用多线程锁
-	// new mult thread lock, check the lock state when write log 
-	void OpenLock();
-
 	// write log info into m_pLogFile
-	bool WriteLog(const char* szFormat, va_list vlArgs);
+	bool WriteLog(FontColor fc, const char* szFormat, va_list vlArgs);
 
 	// write log info and the call stack info into m_pLogFile
-	bool WriteCallStackLog(const char* szFormat, va_list vlArgs);
+	bool WriteCallStackLog(FontColor fc, const char* szFormat, va_list vlArgs);
 
 	// close file
 	void Close();
 
+	// flush stdout and log file
+	void Flush();
+
+	bool Init(const char* szFileName, bool bWriteToStdout);
+
 private:
 	// log file
 	FILE*	m_pLogFile;
-	// mult thread lock, it will new in function OpenLock
-	CLock*	m_pLock;
 	// file path
 	char*	m_szFileName;
+	// if m_bWriteToStdout is true, call WriteLog will write into  file and stdout, Otherwise only write into file.
+	bool	m_bWriteToStdout;
 };

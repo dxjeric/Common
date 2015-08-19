@@ -8,5 +8,6 @@
 //	Purpose:	统一linux和windows的类型
 //-------------------------------------------------------------------------------------------------
 #ifdef linux 
-typedef unsigned long DWORD;
+typedef unsigned long	DWORD;
+typedef	unsigned short	WORD;
 #endif // linux
