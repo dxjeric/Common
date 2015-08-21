@@ -1,4 +1,11 @@
+#ifdef _WIN32
 #include <windows.h>
+#endif // _WIN32
+
+#ifdef linux
+#include <stdlib.h>
+#endif // linux
+
 #include "log.h"
 
 #define _SysPause() system("pause")
