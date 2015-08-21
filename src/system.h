@@ -20,11 +20,17 @@
 #include <minwindef.h>
 #include <time.h>
 
-
-
 #endif	// _WIN32
 
 #ifdef linux
+#include <stdio.h>
+#include <string.h>
+#include <stdarg.h>
+ #include <list>
+#include <map>
+#include <vector>
+#include <assert.h>
+#include <time.h>
 #include <errno.h>
 #include <sys/time.h>
 #include <pthread.h>

@@ -7,6 +7,8 @@
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	
 //-------------------------------------------------------------------------------------------------
+#include <string.h>
+#include <stdarg.h>
 #include "logfile.h"
 
 //-------------------------------------------------------------------------------------------------
@@ -102,7 +104,8 @@ int GetStackTrace(char* szStackTrace)
 {
 	int len = 0;
 #ifdef linux 
-	len = backtrace(&szLogInfo, LOG_INFO_MAX_LEN);
+	szStackTrace = szStackTrace;
+	//len = backtrace(&szStackTrace, LOG_INFO_MAX_LEN);
 #endif // linux
 	return len;
 }
