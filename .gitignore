@@ -44,3 +44,11 @@ Release
 
 # vi/vim .swp file
 *.swp
+
+# test: specified file
+test/log.h
+test/log_config.h
+test/main
+test/main.o
+test/*.log
+
