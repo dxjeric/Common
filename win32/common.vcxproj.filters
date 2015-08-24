@@ -29,6 +29,15 @@
     <ClInclude Include="..\src\liblog.h">
       <Filter>log</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\libbuffer.h">
+      <Filter>buf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\buffer.h">
+      <Filter>buf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\buffer_config.h">
+      <Filter>buf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\logfile.cpp">
@@ -39,6 +48,12 @@
     </ClCompile>
     <ClCompile Include="..\src\liblog.cpp">
       <Filter>log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\libbuffer.cpp">
+      <Filter>buf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\buffer.cpp">
+      <Filter>buf</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
