@@ -15,6 +15,7 @@
 
 #ifdef linux
 #include <sys/time.h>
+#include <errno.h>
 
 // function backtrace is defined in execinfo.h
 #include <execinfo.h>

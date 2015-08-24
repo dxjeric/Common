@@ -16,7 +16,7 @@ $(LIBNAME) : $(OBJS)
 $(OBJS) : %.o :%.cpp
 	cc -c -o $@ $< 
 
-$(SRCS) : basetype.h log_config.h  logfile.h  log.h  system.h
+$(SRCS) : basetype.h log_config.h  logfile.h  log.h 
 
 clean :
 	rm -f $(OBJS) $(LIBPATH)/$(LIBNAME)
