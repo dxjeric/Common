@@ -7,7 +7,16 @@
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	thread lock
 //-------------------------------------------------------------------------------------------------
-#include "system.h"
+#ifdef _WIN32
+// Windows 8 and Windows Server 2012
+// #include <Synchapi.h>
+
+#include <windows.h>
+#endif
+
+#ifdef linux
+#include <pthread.h>
+#endif //linux
 
 #ifdef _WIN32
 typedef CRITICAL_SECTION _HLOCK;

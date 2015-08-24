@@ -16,7 +16,6 @@
     <ClInclude Include="..\src\log.h" />
     <ClInclude Include="..\src\logfile.h" />
     <ClInclude Include="..\src\log_config.h" />
-    <ClInclude Include="..\src\system.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lock.cpp" />

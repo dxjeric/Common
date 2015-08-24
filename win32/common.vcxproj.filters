@@ -11,10 +11,12 @@
     <Filter Include="lock">
       <UniqueIdentifier>{d058f8a1-772d-44a0-9934-2e65dcd39963}</UniqueIdentifier>
     </Filter>
+    <Filter Include="buf">
+      <UniqueIdentifier>{37aa7512-05a8-449e-a0e3-d9c8c63e4a90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\basetype.h" />
-    <ClInclude Include="..\src\system.h" />
     <ClInclude Include="..\src\lock.h">
       <Filter>lock</Filter>
     </ClInclude>

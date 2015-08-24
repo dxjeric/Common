@@ -7,7 +7,9 @@
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	
 //-------------------------------------------------------------------------------------------------
-#include "system.h"
+#include <stdio.h>
+#include <string.h>
+
 #include "lock.h"
 #include "log_config.h"
 

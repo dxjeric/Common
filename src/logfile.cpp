@@ -7,8 +7,19 @@
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	
 //-------------------------------------------------------------------------------------------------
-#include <string.h>
 #include <stdarg.h>
+
+#ifdef _WIN32
+#include <time.h>
+#endif
+
+#ifdef linux
+#include <sys/time.h>
+
+// function backtrace is defined in execinfo.h
+#include <execinfo.h>
+#endif
+
 #include "logfile.h"
 
 //-------------------------------------------------------------------------------------------------
@@ -83,7 +94,7 @@ int FormatLogInfo(char* szDest, const char* szFormat, va_list vlArgs)
 	pDest += sprintf(pDest, "(%04d/%02d/%02d %02d:%02d:%02d) ", tms.tm_year + 1900, tms.tm_mon, tms.tm_mday, tms.tm_hour, tms.tm_min, tms.tm_sec);
 	nMaxLen -= strlen(szDest);
 	int len = _vsnprintf(pDest, nMaxLen, szFormat, vlArgs);
-	if (len >= nMaxLen)
+	if (len >= (int)nMaxLen)
 		len = nMaxLen - 4;	// add '\r\n' and '\0' to the end of log info
 	else if (len < 0)
 		len = 0;
