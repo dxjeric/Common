@@ -46,7 +46,7 @@ Release
 *.swp
 
 # test: specified file
-test/log.h
+test/liblog.h
 test/log_config.h
 test/main
 test/main.o
