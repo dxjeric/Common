@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #endif // linux
 
-#include "log.h"
+#include "liblog.h"
 #ifdef _WIN32
 #define _SysPause() system("pause")
 #else

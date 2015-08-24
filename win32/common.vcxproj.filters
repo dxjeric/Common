@@ -23,10 +23,10 @@
     <ClInclude Include="..\src\logfile.h">
       <Filter>log</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\log.h">
+    <ClInclude Include="..\src\log_config.h">
       <Filter>log</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\log_config.h">
+    <ClInclude Include="..\src\liblog.h">
       <Filter>log</Filter>
     </ClInclude>
   </ItemGroup>
@@ -37,7 +37,7 @@
     <ClCompile Include="..\src\lock.cpp">
       <Filter>lock</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\log.cpp">
+    <ClCompile Include="..\src\liblog.cpp">
       <Filter>log</Filter>
     </ClCompile>
   </ItemGroup>
