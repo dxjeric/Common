@@ -7,8 +7,11 @@
 #endif // linux
 
 #include "log.h"
-
+#ifdef _WIN32
 #define _SysPause() system("pause")
+#else
+#define _SysPause() system("");
+#endif
 
 int main()
 {
