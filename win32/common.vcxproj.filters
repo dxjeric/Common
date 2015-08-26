@@ -14,6 +14,9 @@
     <Filter Include="buf">
       <UniqueIdentifier>{37aa7512-05a8-449e-a0e3-d9c8c63e4a90}</UniqueIdentifier>
     </Filter>
+    <Filter Include="deque">
+      <UniqueIdentifier>{b6e103cc-ed70-42e4-b6bd-fa7c726c6dd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\basetype.h" />
@@ -38,6 +41,9 @@
     <ClInclude Include="..\src\buffer_config.h">
       <Filter>buf</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\deque.h">
+      <Filter>deque</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\logfile.cpp">
@@ -54,6 +60,9 @@
     </ClCompile>
     <ClCompile Include="..\src\buffer.cpp">
       <Filter>buf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\deque.cpp">
+      <Filter>deque</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

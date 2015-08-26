@@ -7,35 +7,21 @@
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	
 //-------------------------------------------------------------------------------------------------
-
 template<class T>
-class deque
+class deque_node
 {
 public:
-	deque();
-	~deque();
-
+	deque_node()
+	{
+		m_pNext = NULL;
+		m_pPrev = NULL;
+	};
+	~deque_node()
+	{
+		m_pNext = NULL;
+		m_pPrev = NULL;
+	};
 public:
-	// 获取下一个元素
-	// get the next element
-	T*	GetNext();
-	// 获取前一个元素
-	// get the previous element
-	T*	GetPrev();
-
-	// 添加一个元素
-	// add new element
-	void Add(T* pNew);
-
-	// 删掉一个元素
-	// 删除当前元素
-	// delete current element
-	void Remove();
-	// 删除指定元素
-	// delete specific element pDel
-	void Remove(T* pDel);
-
-private:
 	T*	m_pNext;
 	T*	m_pPrev;
 };

@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\basetype.h" />
     <ClInclude Include="..\src\buffer_config.h" />
+    <ClInclude Include="..\src\deque.h" />
     <ClInclude Include="..\src\libbuffer.h" />
     <ClInclude Include="..\src\lock.h" />
     <ClInclude Include="..\src\liblog.h" />
@@ -22,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\buffer.cpp" />
+    <ClCompile Include="..\src\deque.cpp" />
     <ClCompile Include="..\src\libbuffer.cpp" />
     <ClCompile Include="..\src\lock.cpp" />
     <ClCompile Include="..\src\liblog.cpp" />
