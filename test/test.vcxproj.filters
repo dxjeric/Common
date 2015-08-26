@@ -8,5 +8,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="logtest.cpp" />
+    <ClCompile Include="buffertest.cpp" />
   </ItemGroup>
 </Project>
