@@ -6,7 +6,11 @@
 #ifdef linux
 #include <errno.h>
 #include <pthread.h>
+#include <unistd.h>	// sleep
 #endif // linux
+#include <assert.h>
+#include <time.h>
+#include <stdlib.h>
 
 #include "liblog.h"
 #include "buffer.h"
@@ -17,24 +21,46 @@
 // Ïß³Ì¿ªÆô
 #define _THANDLE pthread_t
 #define createthread(threadid, routine_addr, param) pthread_create(&threadid, NULL, routine_addr, (void*)param)
+#define Sleep(n) usleep(n)
 #endif // linux
 
 #ifdef _WIN32
 #define _THANDLE HANDLE
 #define createthread(threadid, routine_addr, param) threadid = CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)routine_addr, (LPVOID)param, NULL, NULL)
+
 #endif
+
+#define READ_FILE_PATH	"E:\\ceshi.txt"
+#define WRITE_FILE_PATH "E:\\ceshi_write.txt"
 
 
 void* WorkThread(LPWORD pParam)
 {
-	Block* pBlock = (Block*)pParam;
-
-	char data[32];
-	while (pBlock->GetCanWriteDataSize())
+	Buffer* pBuffer = (Buffer*)pParam;
+	char data[201];
+	FILE* fRead = fopen(READ_FILE_PATH, "rb");
+	if (fRead == NULL)
 	{
-		memset(data, 0, 32);
-		sprintf_s(data, 32, "add new data(%05d) ", pBlock->GetCanWriteDataSize());
-		pBlock->WriteData(data, strlen(data));
+		WriteLog(FC_RED, STDOUT_FILE_HANDLE, "fopen READ_FILE_PATH error %d.", errno);
+		assert(false);
+	}
+	srand((unsigned int)time(NULL));
+
+	while (true)
+	{
+		memset(data, 0, 201);
+		int nRand = rand() % 200 + 1;
+		int nReadLen = fread(data, 1, nRand, fRead);
+
+		if (nReadLen > 0)
+			WriteLog(FC_RED, STDOUT_FILE_HANDLE, data);
+
+		if (!pBuffer->WriteData(data, nReadLen))
+		{
+			WriteLog(FC_RED, STDOUT_FILE_HANDLE, "pBuffer->WriteData failed!");
+			break;
+		}
+		//Sleep(55);
 	}
 
 	return ((void*)0);
@@ -54,7 +80,7 @@ int main()
 {
 	_THANDLE tindex;
 
-	Block buf(8192, allocbuffer, freebuffer);
+	Buffer buf(0, 100);
 #ifdef linux
 	int ret = createthread(tindex, WorkThread, &buf);
 	if (ret != 0)
@@ -70,17 +96,29 @@ int main()
 		return 0;
 	}
 #endif // linux
+
+	FILE* fWrite = fopen(WRITE_FILE_PATH, "wb");
+	if (fWrite == NULL)
+	{
+		WriteLog(FC_RED, STDOUT_FILE_HANDLE, "fopen WRITE_FILE_PATH error %d.", errno);
+		assert(false);
+	}
+
 	unsigned int nLen = 0;
-	char readbuf[100];
+	char readbuf[101];
 	while (1)
 	{
-		nLen = buf.GetCanReadDataSize();
+		nLen = buf.GetCanReadSize();
 		if (nLen > 0)
 		{
-			memset(readbuf, 0, 100);
+			memset(readbuf, 0, 101);
 			nLen = buf.ReadData(readbuf, 100);
-			WriteLog(FC_RED, STDOUT_FILE_HANDLE, readbuf);
+			fwrite(readbuf, 1, nLen, fWrite);
+			fflush(fWrite);
+			WriteLog(FC_GREEN, STDOUT_FILE_HANDLE, readbuf);
+
 		}
+		// Sleep(33);
 	}
 
 	return 0;
