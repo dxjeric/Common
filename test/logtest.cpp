@@ -1,3 +1,4 @@
+#ifdef _LOGTEST
 #ifdef _WIN32
 #include <windows.h>
 #endif // _WIN32
@@ -51,3 +52,4 @@ int main()
 
 	return 1;
 }
+#endif //_LOGTEST

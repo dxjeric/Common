@@ -26,23 +26,9 @@
 //-------------------------------------------------------------------------------------------------
 // font color 
 //-------------------------------------------------------------------------------------------------
-#ifdef _WIN32	
-// SetConsoleAttr 和 RecoverConsoleAttr必须在同一个作用域中
-// SetConsoleAttr and RecoverConsoleAttr must be in the same domain
-#define SetConsoleAttr(ColorInfo)	CONSOLE_SCREEN_BUFFER_INFO info;\
-									GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info); \
-									SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), ColorInfo)
-
-#define RecoverConsoleAttr()		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), info.wAttributes)
-#endif // _WIN32
-
-#ifdef linux
-#define SetConsoleAttr(ColorInfo)	printf(ColorInfo)
-#define RecoverConsoleAttr()		printf("\e[0m")
-#endif	// linux
 
 #ifdef _WIN32
-static const WORD FondColorInfo[] = 
+static const WORD FondColorInfo[] =
 {
 	0,															// FC_BLACK	
 	FOREGROUND_RED,												// FC_RED	
@@ -56,7 +42,7 @@ static const WORD FondColorInfo[] =
 #endif // _WIN32
 
 #ifdef linux
-static const char* FondColorInfo[] = 
+static const char* FondColorInfo[] =
 {
 	"\e[30m",	// FC_BLACK	
 	"\e[31m",	// FC_RED		
@@ -69,6 +55,22 @@ static const char* FondColorInfo[] =
 };
 #endif //linux
 
+#ifdef _WIN32	
+// SetConsoleAttr 和 RecoverConsoleAttr必须在同一个作用域中
+// SetConsoleAttr and RecoverConsoleAttr must be in the same domain
+#define SetConsoleAttr(fc)		CONSOLE_SCREEN_BUFFER_INFO info; \
+								if(fc != FC_DEFAULT) { \
+									GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info); \
+									SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FondColorInfo[fc]); \
+								}
+
+#define RecoverConsoleAttr(fc)	if(fc != FC_DEFAULT) { SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), info.wAttributes); }
+#endif // _WIN32
+
+#ifdef linux
+#define SetConsoleAttr(fc)		if(fc != FC_DEFAULT) { printf(FondColorInfo[fc]); }
+#define RecoverConsoleAttr(fc)	if(fc != FC_DEFAULT) { printf("\e[0m"); }
+#endif	// linux
 //-------------------------------------------------------------------------------------------------
 #ifdef _WIN32
 #define _gettime(tms, tt) localtime_s(tms, tt)
@@ -107,9 +109,9 @@ int FormatLogInfo(char* szDest, const char* szFormat, va_list vlArgs)
 }
 void WriteInfoToStdout(FontColor fc, const char* szStr)
 {
-	SetConsoleAttr(FondColorInfo[fc]);
+	SetConsoleAttr(fc);
 	printf(szStr);
-	RecoverConsoleAttr();
+	RecoverConsoleAttr(fc);
 }
 
 int GetStackTrace(char* szStackTrace)

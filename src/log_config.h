@@ -30,6 +30,7 @@ typedef unsigned int _FILE_HANDLE;
 // 字体颜色仅用于stdout
 // font color can only be used on stdout
 enum FontColor {
+	FC_DEFAULT	= -1,	// 不做颜色设置
 	FC_BLACK	= 0,
 	FC_RED		= 1,
 	FC_GREEN	= 2,
