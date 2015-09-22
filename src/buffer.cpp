@@ -132,13 +132,13 @@ unsigned int Block::WriteData(char* pData, unsigned int nSize)
 	{
 		memcpy(m_pWrite, pData, nFree);
 		m_pWrite += nFree;
-		return nSize - nFree;
+		return nFree;
 	}
 	else
 	{
 		memcpy(m_pWrite, pData, nSize);
 		m_pWrite += nSize;
-		return 0;
+		return nSize;
 	}
 }
 
@@ -244,13 +244,14 @@ Block* Buffer::NewBlock()
 {
 	if (m_nBlockLimit > 0 && m_nBlockLimit <= m_nBlockCount)
 	{
-		WriteLog(FC_RED, STDOUT_FILE_HANDLE, "NewBlock error m_nBlockLimit(m_nBlockLimit) <= m_nBlockCount(m_nBlockCount).", m_nBlockLimit, m_nBlockCount);
+		WriteLog(FC_RED, STDOUT_FILE_HANDLE, "NewBlock error m_nBlockLimit(%d) <= m_nBlockCount(%d).", m_nBlockLimit, m_nBlockCount);
 		return NULL;
 	}
 
 	Block* pNew = new Block(m_nBlockSize, m_pAllocFun, m_pFreeFun);
 	m_pWriteBlock->Add(pNew);
 	m_nBlockCount++;
+	WriteLog(FC_GREEN, STDOUT_FILE_HANDLE, "NewBlock m_nBlockCount(%d).", m_nBlockCount);
 	m_pWriteBlock = m_pWriteBlock->m_pNext;
 	return pNew;
 }
@@ -289,7 +290,8 @@ unsigned int Buffer::ReadData(char* pDest, unsigned int nSize)
 {
 	char* pTmp = pDest;
 	unsigned int nTotalRead = 0;
-	while (m_pReadBlock != m_pWriteBlock)
+	Block* pWrite = m_pWriteBlock;
+	while (m_pReadBlock != pWrite)
 	{
 		unsigned int nRealReadSize = m_pReadBlock->ReadData(pTmp, nSize);
 		pTmp		+= nRealReadSize;
@@ -303,13 +305,17 @@ unsigned int Buffer::ReadData(char* pDest, unsigned int nSize)
 			m_pReadBlock = m_pReadBlock->m_pNext;
 		}
 		else
+		{
+			if (m_pReadBlock->IsReadAll())
+				m_pReadBlock = m_pReadBlock->m_pNext;
 			break;
+		}
 	}
 	
 	// 当前读写在同一个block
 	if (nSize > 0)
 		nTotalRead += m_pReadBlock->ReadData(pTmp, nSize);
-	
+
 	return nTotalRead;
 }
 
@@ -321,8 +327,8 @@ char* Buffer::GetReadData(unsigned int& nSize)
 void Buffer::MarkReadData(unsigned int nSize)
 {
 	m_pReadBlock->MarkReadData(nSize);
-	// m_pReadBlock标记后，已经完全读完，m_pReadBlock指向下一个block
-	if (m_pReadBlock->IsReadAll())
+	// m_pReadBlock标记后，已经完全读完，m_pReadBlock指向下一个block, 如果是同读写同一个块则不跳到下一个
+	if (m_pReadBlock->IsReadAll() && m_pReadBlock != m_pWriteBlock)
 		m_pReadBlock = m_pReadBlock->m_pNext;
 }
 
@@ -330,7 +336,7 @@ void Buffer::MarkReadData(unsigned int nSize)
 bool Buffer::WriteData(char* pData, unsigned int nSize)
 {
 	char* pTmp = pData;
-
+	Block* pRead = m_pReadBlock;
 	do
 	{
 		unsigned int nRealSize = m_pWriteBlock->WriteData(pTmp, nSize);
@@ -340,8 +346,17 @@ bool Buffer::WriteData(char* pData, unsigned int nSize)
 		if (nSize > 0)
 			m_pWriteBlock = m_pWriteBlock->m_pNext;
 		else
+		{
+			if (m_pWriteBlock->IsWriteAll())
+			{
+				if (m_pWriteBlock->m_pNext == m_pReadBlock)
+					NewBlock();
+				else
+					m_pWriteBlock = m_pWriteBlock->m_pNext;
+			}
 			return true;
-	}while (m_pWriteBlock != m_pReadBlock);
+		}
+	} while (m_pWriteBlock != pRead);
 
 	// 添加新的block
 	while (nSize > 0)

@@ -73,6 +73,7 @@ public:
 	/*
 	* write data into block
 	* write the pData into block, and size of pData is nSize, return value is the number of bytes has wrote into block	
+	* 写入数据，返回为真实写入的长度
 	*/
 	unsigned int WriteData(char* pData, unsigned int nSize);
 

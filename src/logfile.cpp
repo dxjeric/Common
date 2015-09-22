@@ -93,7 +93,9 @@ int FormatLogInfo(char* szDest, const char* szFormat, va_list vlArgs)
 	time(&tt);
 	struct tm tms;
 	_gettime(&tms, &tt);
-	
+		
+
+
 	pDest += sprintf(pDest, "(%04d/%02d/%02d %02d:%02d:%02d) ", tms.tm_year + 1900, tms.tm_mon, tms.tm_mday, tms.tm_hour, tms.tm_min, tms.tm_sec);
 	nMaxLen -= strlen(szDest);
 	int len = _vsnprintf(pDest, nMaxLen, szFormat, vlArgs);
