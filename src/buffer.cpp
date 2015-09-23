@@ -12,7 +12,7 @@
 #include <malloc.h>
 #include "buffer.h"
 #include "liblog.h"
-
+#include "common_sys_fun.h"
 //-------------------------------------------------------------------------------------------------
 char* default_alloc(unsigned int nSize)
 {
@@ -23,7 +23,8 @@ void  default_free(char* pBuf)
 {
 	free((void*)pBuf);
 }
-
+//-------------------------------------------------------------------------------------------------
+#define _PRINT_DETIAL
 //-------------------------------------------------------------------------------------------------
 Block::Block(unsigned int nSize, AllocBufferFun pAllocFun, FreeBufferFun pFreeFun)
 {
@@ -37,6 +38,15 @@ Block::Block(unsigned int nSize, AllocBufferFun pAllocFun, FreeBufferFun pFreeFu
 	m_pNext = this;
 	m_pPrev = this;
 }
+
+#ifdef _DEBUG
+void Block::SetBlockName(char* szName)
+{ 
+	memset(m_sName, 0, BLOCK_NAME_LEN);
+	strncpy(m_sName, szName, BLOCK_NAME_LEN);
+	m_sName[BLOCK_NAME_LEN-1] = '\0';
+}
+#endif // _DEBUG
 
 Block::~Block()
 {
@@ -97,6 +107,10 @@ unsigned int Block::ReadData(char* pDest, unsigned int nReadSize)
 	assert(pDest != NULL && nReadSize > 0);
 
 	unsigned int nFree = GetCanReadDataSize();
+#if defined(_DEBUG) && defined(_PRINT_DETIAL)
+	printf("Block(%s) Read Data(%d)->(%d).\n", m_sName, nFree, nReadSize);
+#endif
+
 	if (nReadSize < nFree)
 	{
 		memcpy(pDest, m_pRead, nReadSize);
@@ -126,6 +140,10 @@ unsigned int Block::GetCanWriteDataSize()
 unsigned int Block::WriteData(char* pData, unsigned int nSize)
 {
 	assert(m_pRead != NULL && m_pWrite != NULL);
+#if defined(_DEBUG) && defined(_PRINT_DETIAL)
+	printf("Block(%s) Write Data(%d).\n", m_sName, nSize);
+#endif
+
 	unsigned int nFree = GetCanWriteDataSize();
 
 	if (nSize > nFree)
@@ -201,6 +219,11 @@ Buffer::Buffer(unsigned int nLimit, unsigned int nBlockSize, AllocBufferFun pAll
 	m_pAllocFun = pAllocFun;
 	m_pFreeFun  = pFreeFun;
 
+#ifdef _DEBUG
+	SetName("buffer");
+	m_nTotalBlockCount = 0;
+#endif // _DEBUG
+
 	Init();
 }
 
@@ -238,6 +261,9 @@ void Buffer::Init()
 	//m_pWriteBlock->m_pPrev = m_pWriteBlock;
 	m_pReadBlock = m_pWriteBlock;
 	m_nBlockCount ++;
+#ifdef _DEBUG
+	SetBlcokName(m_pWriteBlock);
+#endif // _DEBUG
 }
 
 Block* Buffer::NewBlock()
@@ -253,6 +279,9 @@ Block* Buffer::NewBlock()
 	m_nBlockCount++;
 	WriteLog(FC_GREEN, STDOUT_FILE_HANDLE, "NewBlock m_nBlockCount(%d).", m_nBlockCount);
 	m_pWriteBlock = m_pWriteBlock->m_pNext;
+#ifdef _DEBUG
+	SetBlcokName(pNew);
+#endif // _DEBUG
 	return pNew;
 }
 
@@ -393,3 +422,20 @@ bool Buffer::MarkWriteData(unsigned int nSize)
 	
 	return true;
 }
+
+#ifdef _DEBUG
+void Buffer::SetName(char* szName)
+{
+	memset(m_szName, 0, BLOCK_OWNER_NAME);
+	strncpy(m_szName, szName, BLOCK_OWNER_NAME);
+	m_szName[BLOCK_OWNER_NAME - 1] = '\0';
+}
+
+void Buffer::SetBlcokName(Block* pBlock)
+{
+	char szBlock[BLOCK_NAME_LEN];
+	memset(szBlock, 0, BLOCK_NAME_LEN);
+	csf_sprintf(szBlock, BLOCK_NAME_LEN, "%s-block-%05d", m_szName, m_nTotalBlockCount++);
+	pBlock->SetBlockName(szBlock);
+}
+#endif // _DEBUG

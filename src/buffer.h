@@ -15,6 +15,11 @@
 char* default_alloc(unsigned int nSize);
 void  default_free(char* pBuf);
 
+#ifdef _DEBUG
+#define BLOCK_NAME_LEN 32
+#define BLOCK_OWNER_NAME 16
+#endif // _DEBUG
+
 
 // 数据块
 class Block : public deque_node<Block>
@@ -108,6 +113,13 @@ public:
 	*/
 	bool IsWriteAll() { return (m_pTail == m_pWrite); };
 
+#ifdef _DEBUG
+public:
+	// 
+	void SetBlockName(char* szOwner);
+public:
+	char m_sName[BLOCK_NAME_LEN];
+#endif	// _DEBUG
 
 private:
 	/*	
@@ -211,6 +223,17 @@ private:
 	* 创建一个新的block, 只有在写的时候才会创建
 	*/
 	Block*	NewBlock();
+
+#ifdef _DEBUG
+public:
+	void SetName(char* szName);
+	void SetBlcokName(Block* pBlock);
+
+public:
+	char m_szName[BLOCK_OWNER_NAME];
+	unsigned int m_nTotalBlockCount;
+
+#endif // _DEBUG
 
 public:
 	/*

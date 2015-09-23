@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\basetype.h" />
     <ClInclude Include="..\src\buffer_config.h" />
+    <ClInclude Include="..\src\common_sys_fun.h" />
     <ClInclude Include="..\src\deque.h" />
     <ClInclude Include="..\src\libbuffer.h" />
     <ClInclude Include="..\src\lock.h" />
