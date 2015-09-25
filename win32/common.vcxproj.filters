@@ -17,6 +17,9 @@
     <Filter Include="deque">
       <UniqueIdentifier>{b6e103cc-ed70-42e4-b6bd-fa7c726c6dd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="thread">
+      <UniqueIdentifier>{c795a982-8c56-4e79-9e5d-2baa7968f72e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\basetype.h" />
@@ -45,6 +48,12 @@
       <Filter>deque</Filter>
     </ClInclude>
     <ClInclude Include="..\src\common_sys_fun.h" />
+    <ClInclude Include="..\src\thread.h">
+      <Filter>thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\thread_config.h">
+      <Filter>thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\logfile.cpp">
@@ -64,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="..\src\deque.cpp">
       <Filter>deque</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\thread.cpp">
+      <Filter>thread</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
