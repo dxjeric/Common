@@ -10,4 +10,5 @@
 #ifdef linux 
 typedef unsigned long	DWORD;
 typedef	unsigned short	WORD;
+typedef int				BOOL;
 #endif // linux
