@@ -49,10 +49,22 @@ public:
 	~CThrea();
 
 public:
+	// 创建运行线程
 	bool Run();
+	/*
+	* 将joinable重新设置为detach属性
+	*/
 	bool SetDetached();
+
+	/*
+	* 关闭线程
+	*/
+	bool Join();
 
 private:
 	bool m_bHasRun;	// 线程是否已经运行
+	bool m_bIsJoin;	// 线程属性
 
+	// 线程句柄
+	_THREAD_HANDLE m_Thread;
 };

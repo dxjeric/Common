@@ -7,3 +7,11 @@
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	
 //-------------------------------------------------------------------------------------------------
+#include "thread.h"
+
+CThrea::CThrea(_THREAD_START_FUN pFun, int nStackSize /* = 0 */, bool bIsJoin /* = true */)
+{
+#ifdef linux
+
+#endif //linux
+}
