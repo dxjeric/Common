@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------------------
--- lua ²ãµÄvector3
+-- lua å±‚çš„vector3
 ------------------------------------------------------------------------------------------
-local vector3Meta 		= {}	-- vector3 Ôª±í(metatable)
-local otherVector3Funs 	= {}	-- vector3 ÆäËûº¯Êı
+local vector3Meta 		= {}	-- vector3 å…ƒè¡¨(metatable)
+local otherVector3Funs 	= {}	-- vector3 å…¶ä»–å‡½æ•°
 ------------------------------------------------------------------------------------------
 -- vector3 + vector3
 vector3Meta.__add = function(v1, v2)
@@ -22,20 +22,20 @@ vector3Meta.__div = function(v1, f)
 	if type(f) ~= "number" then return v1 end
 	return vector3(v1.x / f, v1.y / f, v1.z / f)
 end
--- .. print ·½±ãµ÷ÊÔ
+-- .. print æ–¹ä¾¿è°ƒè¯•
 vector3Meta.__concat = function(t, v1)
 	return t .. string.format("x = %f, y = %f, z = %f", v1.x, v1.y, v1.z)
 end
 
--- »ñÈ¡ÆäËû³ÉÔ±
+-- è·å–å…¶ä»–æˆå‘˜
 vector3Meta.__index = otherVector3Funs
 
--- ½ûÖ¹Ìí¼ÓĞÂµÄ³ÉÔ±
+-- ç¦æ­¢æ·»åŠ æ–°çš„æˆå‘˜
 vector3Meta.__newindex = function(t, k, v) assert(false, "vector3 not add new param <" .. k .. ">") end
 ------------------------------------------------------------------------------------------
--- ÆäËûµÄº¯Êı
+-- å…¶ä»–çš„å‡½æ•°
 ------------------------------------------------------------------------------------------
--- ±ê×¼»¯
+-- æ ‡å‡†åŒ–
 function otherVector3Funs:normalize()
 	local len = self:length()
 	if len > 0 then
@@ -49,7 +49,7 @@ function otherVector3Funs:normalize()
 	end	
 end
 
--- ³¤¶È
+-- é•¿åº¦
 function otherVector3Funs:length()
 	return math.sqrt(self.x^2 + self.y^2 + self.z^2) 
 end
@@ -66,7 +66,7 @@ function otherVector3Funs:printf()
 	print(self:toStr())
 end
 
--- Õâ²¿·Öº¯ÊıÊÇÎªÁËĞŞ¸Ä±¾ÉíÌí¼Ó£¬¿¼ÂÇµ½²»ĞèÒª´´½¨ĞÂµÄÊı¾İ½á¹¹´¦Àí£¬Ôª±í´¦Àí¶¼»áÓĞĞÂµÄ½á¹¹Éú³É
+-- è¿™éƒ¨åˆ†å‡½æ•°æ˜¯ä¸ºäº†ä¿®æ”¹æœ¬èº«æ·»åŠ ï¼Œè€ƒè™‘åˆ°ä¸éœ€è¦åˆ›å»ºæ–°çš„æ•°æ®ç»“æ„å¤„ç†ï¼Œå…ƒè¡¨å¤„ç†éƒ½ä¼šæœ‰æ–°çš„ç»“æ„ç”Ÿæˆ
 function otherVector3Funs:add(v3)
 	self.x = self.x + v3.x
 	self.y = self.y + v3.y
@@ -95,7 +95,7 @@ function otherVector3Funs:copy()
 	return vector3(self.x, self.y, self.z)
 end
 ------------------------------------------------------------------------------------------
--- Éú³ÉÒ»¸övector3
+-- ç”Ÿæˆä¸€ä¸ªvector3
 ------------------------------------------------------------------------------------------
 function vector3(x, y, z)
 	local v3 = {x = x, y = y, z = z}

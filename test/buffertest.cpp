@@ -17,9 +17,9 @@
 #include "common_sys_fun.h"
 
 #ifdef linux 
-// ×Ö·û¸ñÊ½»¯
+// å­—ç¬¦æ ¼å¼åŒ–
 #define sprintf_s snprintf
-// Ïß³Ì¿ªÆô
+// çº¿ç¨‹å¼€å¯
 #define _THANDLE pthread_t
 #define createthread(threadid, routine_addr, param) pthread_create(&threadid, NULL, routine_addr, (void*)param)
 #endif // linux
