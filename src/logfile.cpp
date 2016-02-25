@@ -1,8 +1,8 @@
 //-------------------------------------------------------------------------------------------------
 //	Created:	2015-8-17   21:47
 //	File Name:	logfile.cpp
-//	Author:		Eric(É³Ó¥)
-//	PS:			Èç¹û·¢ÏÖËµÃ÷´íÎó£¬´úÂë·ç¸ñ´íÎó£¬Âß¼­´íÎÊÌâ£¬Éè¼ÆÎÊÌâ£¬Çë¸æËßÎÒ¡£Ð»Ð»£¡
+//	Author:		Eric(æ²™é¹°)
+//	PS:			å¦‚æžœå‘çŽ°è¯´æ˜Žé”™è¯¯ï¼Œä»£ç é£Žæ ¼é”™è¯¯ï¼Œé€»è¾‘é”™é—®é¢˜ï¼Œè®¾è®¡é—®é¢˜ï¼Œè¯·å‘Šè¯‰æˆ‘ã€‚è°¢è°¢ï¼
 //				Please to send me Email if you find any bug, better code design, etc.
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	
@@ -50,7 +50,7 @@ static const char* FondColorInfo[] =
 #endif //linux
 
 #ifdef _WIN32	
-// SetConsoleAttr ºÍ RecoverConsoleAttr±ØÐëÔÚÍ¬Ò»¸ö×÷ÓÃÓòÖÐ
+// SetConsoleAttr å’Œ RecoverConsoleAttrå¿…é¡»åœ¨åŒä¸€ä¸ªä½œç”¨åŸŸä¸­
 // SetConsoleAttr and RecoverConsoleAttr must be in the same domain
 #define SetConsoleAttr(fc)		CONSOLE_SCREEN_BUFFER_INFO info; \
 								if(fc != FC_DEFAULT) { \
@@ -89,7 +89,7 @@ int FormatLogInfo(char* szDest, const char* szFormat, va_list vlArgs)
 	pDest += sprintf(pDest, "\r\n");
 	*(pDest++) = '\0';
 
-	return pDest - szDest - 1;	// ³¤¶È²»°üº¬'\0'
+	return pDest - szDest - 1;	// é•¿åº¦ä¸åŒ…å«'\0'
 }
 
 void WriteInfoToStdout(FontColor fc, const char* szStr)
@@ -205,7 +205,7 @@ bool CLogFile::WriteCallStackLog(FontColor fc, const char* szFormat, va_list vlA
 		WriteInfoToStdout(fc, szLogInfo);
 
 #ifdef linux
-	// ´òÓ¡µ÷ÓÃ¶ÑÕ»ÐÅÏ¢
+	// æ‰“å°è°ƒç”¨å †æ ˆä¿¡æ¯
 	memset(szLogInfo, 0, LOG_INFO_MAX_LEN);
 	int nBackTraceLen = GetStackTrace(szLogInfo);
 	if (nBackTraceLen > 0)

@@ -4,7 +4,7 @@
 // tt  : time_t
 #define csf_gettime(tms, tt) localtime_s(tms, tt)
 #define csf_sprintf sprintf_s
-// n : ºÁÃë
+// n : æ¯«ç§’
 #define csf_sleep(n) Sleep(n)
 #define csf_vsnprintf _vsnprintf
 #endif // _win32
@@ -16,6 +16,6 @@
 #define csf_gettime(tms, tt) localtime_r(tt, tms)
 #define csf_sprintf snprintf
 #define csf_vsnprintf vsnprintf
-// n : ºÁÃë
+// n : æ¯«ç§’
 #define csf_sleep(n) usleep(n)
 #endif //linux

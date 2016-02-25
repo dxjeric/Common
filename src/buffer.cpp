@@ -1,8 +1,8 @@
 //-------------------------------------------------------------------------------------------------
 //	Created:	2015-8-24   16:05
 //	File Name:	buffer.cpp
-//	Author:		Eric(É³Ó¥)
-//	PS:			Èç¹û·¢ÏÖËµÃ÷´íÎó£¬´úÂë·ç¸ñ´íÎó£¬Âß¼­´íÎÊÌâ£¬Éè¼ÆÎÊÌâ£¬Çë¸æËßÎÒ¡£Ð»Ð»£¡
+//	Author:		Eric(æ²™é¹°)
+//	PS:			å¦‚æžœå‘çŽ°è¯´æ˜Žé”™è¯¯ï¼Œä»£ç é£Žæ ¼é”™è¯¯ï¼Œé€»è¾‘é”™é—®é¢˜ï¼Œè®¾è®¡é—®é¢˜ï¼Œè¯·å‘Šè¯‰æˆ‘ã€‚è°¢è°¢ï¼
 //				Please to send me Email if you find any bug, better code design, etc.
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	
@@ -61,7 +61,7 @@ Block::~Block()
 unsigned int Block::GetCanReadDataSize()
 {
 	assert(m_pRead != NULL && m_pWrite != NULL);
-	// ÔÚ¶àÏß³ÌÏÂ£¬m_pWriteÆäËûµØ·½Ê¹ÓÃ£¬ÎªÁË·ÀÖ¹º¯ÊýÄÚ²¿²»Ò»ÖÂ£¬Òò´ËÏÈÈ¡³ö
+	// åœ¨å¤šçº¿ç¨‹ä¸‹ï¼Œm_pWriteå…¶ä»–åœ°æ–¹ä½¿ç”¨ï¼Œä¸ºäº†é˜²æ­¢å‡½æ•°å†…éƒ¨ä¸ä¸€è‡´ï¼Œå› æ­¤å…ˆå–å‡º
 	char* pWrite = m_pWrite;
 	if (m_pRead > pWrite)
 	{
@@ -236,7 +236,7 @@ Buffer::~Buffer()
 		pTmp = m_pWriteBlock->m_pNext;
 		delete m_pWriteBlock;
 		
-		// É¾³ý×îºóÒ»¸ö
+		// åˆ é™¤æœ€åŽä¸€ä¸ª
 		if (pTmp == m_pReadBlock)
 		{
 			delete m_pReadBlock;
@@ -256,7 +256,7 @@ Buffer::~Buffer()
 void Buffer::Init()
 {
 	m_pWriteBlock = new Block(m_nBlockSize, m_pAllocFun, m_pFreeFun);
-	//// µÚÒ»¸ö¿éÐèÒª×Ô¼º
+	//// ç¬¬ä¸€ä¸ªå—éœ€è¦è‡ªå·±
 	//m_pWriteBlock->m_pNext = m_pWriteBlock;
 	//m_pWriteBlock->m_pPrev = m_pWriteBlock;
 	m_pReadBlock = m_pWriteBlock;
@@ -329,7 +329,7 @@ unsigned int Buffer::ReadData(char* pDest, unsigned int nSize)
 
 		if (nSize > 0)
 		{
-			// ¶ÁÍêÒ»¸ö¿é
+			// è¯»å®Œä¸€ä¸ªå—
 			m_pReadBlock->Clear();
 			m_pReadBlock = m_pReadBlock->m_pNext;
 		}
@@ -341,7 +341,7 @@ unsigned int Buffer::ReadData(char* pDest, unsigned int nSize)
 		}
 	}
 	
-	// µ±Ç°¶ÁÐ´ÔÚÍ¬Ò»¸öblock
+	// å½“å‰è¯»å†™åœ¨åŒä¸€ä¸ªblock
 	if (nSize > 0)
 		nTotalRead += m_pReadBlock->ReadData(pTmp, nSize);
 
@@ -356,7 +356,7 @@ char* Buffer::GetReadData(unsigned int& nSize)
 void Buffer::MarkReadData(unsigned int nSize)
 {
 	m_pReadBlock->MarkReadData(nSize);
-	// m_pReadBlock±ê¼Çºó£¬ÒÑ¾­ÍêÈ«¶ÁÍê£¬m_pReadBlockÖ¸ÏòÏÂÒ»¸öblock, Èç¹ûÊÇÍ¬¶ÁÐ´Í¬Ò»¸ö¿éÔò²»Ìøµ½ÏÂÒ»¸ö
+	// m_pReadBlockæ ‡è®°åŽï¼Œå·²ç»å®Œå…¨è¯»å®Œï¼Œm_pReadBlockæŒ‡å‘ä¸‹ä¸€ä¸ªblock, å¦‚æžœæ˜¯åŒè¯»å†™åŒä¸€ä¸ªå—åˆ™ä¸è·³åˆ°ä¸‹ä¸€ä¸ª
 	if (m_pReadBlock->IsReadAll() && m_pReadBlock != m_pWriteBlock)
 		m_pReadBlock = m_pReadBlock->m_pNext;
 }
@@ -387,7 +387,7 @@ bool Buffer::WriteData(char* pData, unsigned int nSize)
 		}
 	} while (m_pWriteBlock != pRead);
 
-	// Ìí¼ÓÐÂµÄblock
+	// æ·»åŠ æ–°çš„block
 	while (nSize > 0)
 	{
 		if(NewBlock() == NULL)

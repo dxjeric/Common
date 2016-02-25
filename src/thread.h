@@ -1,8 +1,8 @@
 //-------------------------------------------------------------------------------------------------
 //	Created:	2015-9-25   17:02
 //	File Name:	thread.h
-//	Author:		Eric(É³Ó¥)
-//	PS:			Èç¹û·¢ÏÖËµÃ÷´íÎó£¬´úÂë·ç¸ñ´íÎó£¬Âß¼­´íÎÊÌâ£¬Éè¼ÆÎÊÌâ£¬Çë¸æËßÎÒ¡£Ğ»Ğ»£¡
+//	Author:		Eric(æ²™é¹°)
+//	PS:			å¦‚æœå‘ç°è¯´æ˜é”™è¯¯ï¼Œä»£ç é£æ ¼é”™è¯¯ï¼Œé€»è¾‘é”™é—®é¢˜ï¼Œè®¾è®¡é—®é¢˜ï¼Œè¯·å‘Šè¯‰æˆ‘ã€‚è°¢è°¢ï¼
 //				Please to send me Email if you find any bug, better code design, etc.
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	
@@ -18,7 +18,7 @@
 #include "basetype.h"
 #include "common_sys_fun.h"
 //-------------------------------------------------------------------------------------------------
-// Í³Ò»±äÁ¿¶¨Òå
+// ç»Ÿä¸€å˜é‡å®šä¹‰
 #ifdef linux
 typedef pthread_t	_THREAD_HANDLE;
 typedef void*		_THREAD_START_FUN;
@@ -30,41 +30,41 @@ typedef LPTHREAD_START_ROUTINE	_THREAD_START_FUN;
 #endif //_WIN32
 //-------------------------------------------------------------------------------------------------
 /*
-* ¹ØÓÚpthreadµÄjoinableºÍdetachedÊôĞÔËµÃ÷
-* joinableÊôĞÔÎª¸ÃÏß³Ì¿ÉÒÔ±»ÆäËûÏß³Ì»òÕß½ø³Ì¹Ø±Õ£¬Ïß³Ì×ÊÔ´µÄ½áÊø±ØĞëÍ¨¹ıpthread_joinÀ´»ØÊÕ¡£
-* detachedÊôĞÔ²»ÄÜÍ¨¹ıpthread_joinÀ´ÖÕÖ¹Ïß³Ì£¬Ïß³Ì½áÊøÊ±£¬Ïß³Ì×ÊÔ´ÏµÍ³»á×Ô¶¯»ØÊÕ¡£Ê¹ÓÃÕâ¸öÊôĞÔÊÇ³ÌĞò²»ĞèÒª¹ØĞÄÏß³ÌµÄÍË³ö×´Ì¬¡£
-*		  ÎŞ·¨ÔÙÉèÖÃÎªjoinableÊôĞÔ
+* å…³äºpthreadçš„joinableå’Œdetachedå±æ€§è¯´æ˜
+* joinableå±æ€§ä¸ºè¯¥çº¿ç¨‹å¯ä»¥è¢«å…¶ä»–çº¿ç¨‹æˆ–è€…è¿›ç¨‹å…³é—­ï¼Œçº¿ç¨‹èµ„æºçš„ç»“æŸå¿…é¡»é€šè¿‡pthread_joinæ¥å›æ”¶ã€‚
+* detachedå±æ€§ä¸èƒ½é€šè¿‡pthread_joinæ¥ç»ˆæ­¢çº¿ç¨‹ï¼Œçº¿ç¨‹ç»“æŸæ—¶ï¼Œçº¿ç¨‹èµ„æºç³»ç»Ÿä¼šè‡ªåŠ¨å›æ”¶ã€‚ä½¿ç”¨è¿™ä¸ªå±æ€§æ˜¯ç¨‹åºä¸éœ€è¦å…³å¿ƒçº¿ç¨‹çš„é€€å‡ºçŠ¶æ€ã€‚
+*		  æ— æ³•å†è®¾ç½®ä¸ºjoinableå±æ€§
 */
 class CThrea
 {
 public:
 	/*
-	* pFun		 : Ïß³ÌÔËĞĞº¯Êı
-	* nStackSize : Ïß³ÌÉêÇëµÄ¶ÑÕ»´óĞ¡£¬0±íÊ¾ÉêÇëµÄ´óĞ¡ÎªÏµÍ³ÉèÖÃµÄÄ¬ÈÏ´óĞ¡
-	* 			   linux²é¿´ÃüÁî ulimit -s	
-	* ±¸×¢:	1. join detachÊôĞÔÖ»ÓĞlinuxÖ§³Ö
-	*       2. linuxÏµÍ³Ïß³Ì´´½¨Ä¬ÈÏÎªjoinableÊôĞÔ
+	* pFun		 : çº¿ç¨‹è¿è¡Œå‡½æ•°
+	* nStackSize : çº¿ç¨‹ç”³è¯·çš„å †æ ˆå¤§å°ï¼Œ0è¡¨ç¤ºç”³è¯·çš„å¤§å°ä¸ºç³»ç»Ÿè®¾ç½®çš„é»˜è®¤å¤§å°
+	* 			   linuxæŸ¥çœ‹å‘½ä»¤ ulimit -s	
+	* å¤‡æ³¨:	1. join detachå±æ€§åªæœ‰linuxæ”¯æŒ
+	*       2. linuxç³»ç»Ÿçº¿ç¨‹åˆ›å»ºé»˜è®¤ä¸ºjoinableå±æ€§
 	*/
 	CThrea(_THREAD_START_FUN pFun, int nStackSize = 0, bool bIsJoin = true);
 	~CThrea();
 
 public:
-	// ´´½¨ÔËĞĞÏß³Ì
+	// åˆ›å»ºè¿è¡Œçº¿ç¨‹
 	bool Run();
 	/*
-	* ½«joinableÖØĞÂÉèÖÃÎªdetachÊôĞÔ
+	* å°†joinableé‡æ–°è®¾ç½®ä¸ºdetachå±æ€§
 	*/
 	bool SetDetached();
 
 	/*
-	* ¹Ø±ÕÏß³Ì
+	* å…³é—­çº¿ç¨‹
 	*/
 	bool Join();
 
 private:
-	bool m_bHasRun;	// Ïß³ÌÊÇ·ñÒÑ¾­ÔËĞĞ
-	bool m_bIsJoin;	// Ïß³ÌÊôĞÔ
+	bool m_bHasRun;	// çº¿ç¨‹æ˜¯å¦å·²ç»è¿è¡Œ
+	bool m_bIsJoin;	// çº¿ç¨‹å±æ€§
 
-	// Ïß³Ì¾ä±ú
+	// çº¿ç¨‹å¥æŸ„
 	_THREAD_HANDLE m_Thread;
 };

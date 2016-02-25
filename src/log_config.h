@@ -1,36 +1,36 @@
 //-------------------------------------------------------------------------------------------------
 //	Created:	2015-8-17   21:01
 //	File Name:	log_config.h
-//	Author:		Eric(沙鹰)
-//	PS:			如果发现说明错误，代码风格错误，逻辑错问题，设计问题，请告诉我。谢谢！
+//	Author:		Eric(娌欓拱)
+//	PS:			濡傛灉鍙戠幇璇存槑閿欒锛屼唬鐮侀鏍奸敊璇紝閫昏緫閿欓棶棰橈紝璁捐闂锛岃鍛婅瘔鎴戙�傝阿璋紒
 //				Please to send me Email if you find any bug, better code design, etc.
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	config of log
 //-------------------------------------------------------------------------------------------------
 #pragma once
-// DLL暂时不做
+// DLL鏆傛椂涓嶅仛
 #if defined(LOG_DLL)
 
 #else
 #define LOG_API extern
 #endif 
 
-// 定义CreateNewLogFile返回给用户的文件句柄, define file handle function CreateNewLogFile return
+// 瀹氫箟CreateNewLogFile杩斿洖缁欑敤鎴风殑鏂囦欢鍙ユ焺, define file handle function CreateNewLogFile return
 typedef unsigned int _FILE_HANDLE;
 
-// 文件名的长度, 文件不能超过系统可以允许的文件路径的长度
+// 鏂囦欢鍚嶇殑闀垮害, 鏂囦欢涓嶈兘瓒呰繃绯荤粺鍙互鍏佽鐨勬枃浠惰矾寰勭殑闀垮害
 // the max length of log file path. 
 // the max length must be not bigger than 256, because it is the max length of system file path.
 // the log class will record the log file path
 #define LOG_FILE_PATH_LEN 256
 
-// 每条日志的最大长度， the max length of every log info
+// 姣忔潯鏃ュ織鐨勬渶澶ч暱搴︼紝 the max length of every log info
 #define LOG_INFO_MAX_LEN  10240
 
-// 字体颜色仅用于stdout
+// 瀛椾綋棰滆壊浠呯敤浜巗tdout
 // font color can only be used on stdout
 enum FontColor {
-	FC_DEFAULT	= -1,	// 不做颜色设置
+	FC_DEFAULT	= -1,	// 涓嶅仛棰滆壊璁剧疆
 	FC_BLACK	= 0,
 	FC_RED		= 1,
 	FC_GREEN	= 2,

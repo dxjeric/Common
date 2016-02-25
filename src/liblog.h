@@ -1,41 +1,41 @@
 //-------------------------------------------------------------------------------------------------
 //	Created:	2015-8-17   20:52
 //	File Name:	log.h
-//	Author:		Eric(É³Ó¥)
-//	PS:			Èç¹û·¢ÏÖËµÃ÷´íÎó£¬´úÂë·ç¸ñ´íÎó£¬Âß¼­´íÎÊÌâ£¬Éè¼ÆÎÊÌâ£¬Çë¸æËßÎÒ¡£Ğ»Ğ»£¡
+//	Author:		Eric(æ²™é¹°)
+//	PS:			å¦‚æœå‘ç°è¯´æ˜é”™è¯¯ï¼Œä»£ç é£æ ¼é”™è¯¯ï¼Œé€»è¾‘é”™é—®é¢˜ï¼Œè®¾è®¡é—®é¢˜ï¼Œè¯·å‘Šè¯‰æˆ‘ã€‚è°¢è°¢ï¼
 //				Please to send me Email if you find any bug, better code design, etc.
 //  Email:		frederick.dang@gmail.com
-//	Purpose:	¶ÔÍâ½Ó¿Ú¡£
+//	Purpose:	å¯¹å¤–æ¥å£ã€‚
 //-------------------------------------------------------------------------------------------------
 #include <stdio.h>
 #include "log_config.h"
 //-------------------------------------------------------------------------------------------------
 // write into file
 //-------------------------------------------------------------------------------------------------
-// ´´½¨Ò»¸ölogÎÄ¼ş
+// åˆ›å»ºä¸€ä¸ªlogæ–‡ä»¶
 // parameter: 
-// szName:			ÈÕÖ¾ÎÄ¼şÃû(the path of log file)
-// bWriteToStdout:  Èç¹ûbWriteToStdoutÎªtrue, Ôò»á½«ÈÕÖ¾ĞÅÏ¢Í¬Ê±Ğ´ÈëstdoutºÍÈÕÖ¾ÎÄ¼şÖĞ£¬·ñÔòÖ»Ğ´ÈëÈÕÖ¾ÎÄ¼ş¡£
+// szName:			æ—¥å¿—æ–‡ä»¶å(the path of log file)
+// bWriteToStdout:  å¦‚æœbWriteToStdoutä¸ºtrue, åˆ™ä¼šå°†æ—¥å¿—ä¿¡æ¯åŒæ—¶å†™å…¥stdoutå’Œæ—¥å¿—æ–‡ä»¶ä¸­ï¼Œå¦åˆ™åªå†™å…¥æ—¥å¿—æ–‡ä»¶ã€‚
 //					if bWriteToStdout is true, call write log funs will write into  file and stdout, 
 //					Otherwise only write into file.
 // return value:    return positive number if success, otherwise return 0.
 LOG_API _FILE_HANDLE OpenNewLogFile(const char* szName, bool bWriteToStdout);
 
-// Ìí¼ÓÈÕÖ¾
-// parameter£º
-// wColor: ¼ûlog_config.h(see log_config.h enum FontColor)
+// æ·»åŠ æ—¥å¿—
+// parameterï¼š
+// wColor: è§log_config.h(see log_config.h enum FontColor)
 // hLogFile: the file handle that function OpenNewLogFile return. it will write into stdout when hLogFIle is STDOUT_FILE_HANDLE,
 // szFormat: a format string that specifies how subsequent arguments
 // write the log info 
 LOG_API bool WriteLog(FontColor wColor, _FILE_HANDLE hLogFile, const char* szFormat, ...);
 
-// Ìí¼ÓÈÕÖ¾ÒÔ¼°µ÷ÓÃ¶ÑÕ»
+// æ·»åŠ æ—¥å¿—ä»¥åŠè°ƒç”¨å †æ ˆ
 // write the log info and call stack 
 LOG_API bool WriteCallStackLog(FontColor wColor, _FILE_HANDLE hLogFile, const char* szFormat, ...);
 
 // flush log file 
 LOG_API void FlushLogFile(_FILE_HANDLE hLogFile);
 
-// ¹Ø±ÕÈÕÖ¾ÎÄ¼ş
+// å…³é—­æ—¥å¿—æ–‡ä»¶
 // close the log file
 LOG_API void CloseLogFile(_FILE_HANDLE hLogFile);

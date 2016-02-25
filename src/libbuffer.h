@@ -1,8 +1,8 @@
 //-------------------------------------------------------------------------------------------------
 //	Created:	2015-8-24   16:00
 //	File Name:	libbuffer.h
-//	Author:		Eric(É³Ó¥)
-//	PS:			Èç¹û·¢ÏÖËµÃ÷´íÎó£¬´úÂë·ç¸ñ´íÎó£¬Âß¼­´íÎÊÌâ£¬Éè¼ÆÎÊÌâ£¬Çë¸æËßÎÒ¡£Ğ»Ğ»£¡
+//	Author:		Eric(æ²™é¹°)
+//	PS:			å¦‚æœå‘ç°è¯´æ˜é”™è¯¯ï¼Œä»£ç é£æ ¼é”™è¯¯ï¼Œé€»è¾‘é”™é—®é¢˜ï¼Œè®¾è®¡é—®é¢˜ï¼Œè¯·å‘Šè¯‰æˆ‘ã€‚è°¢è°¢ï¼
 //				Please to send me Email if you find any bug, better code design, etc.
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	
@@ -14,10 +14,10 @@
 class Buffer;
 //-------------------------------------------------------------------------------------------------
 /* 
-Ãû³Æ: ´´½¨Ò»¸öBuffer¶ÔÏó
-²ÎÊı1: ÉêÇëbufº¯Êı£¬Èç¹û²»ÎªNULL£¬ÔòBuffer¶ÔÏóÔÚÉêÇëbufferÊ±Ê¹ÓÃÕâ¸öº¯Êı£¬·ñÔòÊ¹ÓÃÄ¬ÈÏµÄÉêÇëº¯Êı
-²ÎÊı2: ÊÍ·Åbufº¯Êı£¬Èç¹û²»ÎªNULL£¬ÔòBuffer¶ÔÏóÔÚÊÍ·ÅbufferÊ±Ê¹ÓÃÕâ¸öº¯Êı£¬·ñÔòÊ¹ÓÃÄ¬ÈÏµÄÊÍ·Åº¯Êı
-·µ»ØÖµ: ³É¹¦Ê±·µ»ØBuffer¶ÔÏóµÄÖ¸Õë£¬Ê§°ÜÔò·µ»ØNULL
+åç§°: åˆ›å»ºä¸€ä¸ªBufferå¯¹è±¡
+å‚æ•°1: ç”³è¯·bufå‡½æ•°ï¼Œå¦‚æœä¸ä¸ºNULLï¼Œåˆ™Bufferå¯¹è±¡åœ¨ç”³è¯·bufferæ—¶ä½¿ç”¨è¿™ä¸ªå‡½æ•°ï¼Œå¦åˆ™ä½¿ç”¨é»˜è®¤çš„ç”³è¯·å‡½æ•°
+å‚æ•°2: é‡Šæ”¾bufå‡½æ•°ï¼Œå¦‚æœä¸ä¸ºNULLï¼Œåˆ™Bufferå¯¹è±¡åœ¨é‡Šæ”¾bufferæ—¶ä½¿ç”¨è¿™ä¸ªå‡½æ•°ï¼Œå¦åˆ™ä½¿ç”¨é»˜è®¤çš„é‡Šæ”¾å‡½æ•°
+è¿”å›å€¼: æˆåŠŸæ—¶è¿”å›Bufferå¯¹è±¡çš„æŒ‡é’ˆï¼Œå¤±è´¥åˆ™è¿”å›NULL
 
 name: create a Buffer object
 param pfnAllocFun: allocate new buffer. if it is not NULL, Buffer object will allocate buffer by using 
@@ -29,8 +29,8 @@ return value: On success a point for new buffer object is returned, On error NUL
 Buffer* CreateNewBufferObj(AllocBufferFun pfnAllocFun = NULL, AllocBufferFun pfnFreeFun = NULL);
 
 /*
-Ãû³Æ: É¾³ıBuffer¶ÔÏó
-²ÎÊı1: ÒªÉ¾³ıµÄ¶ÔÏó
+åç§°: åˆ é™¤Bufferå¯¹è±¡
+å‚æ•°1: è¦åˆ é™¤çš„å¯¹è±¡
 
 name: delete Buffer object
 param 1: object need to be deleted
@@ -38,10 +38,10 @@ param 1: object need to be deleted
 void DeleteBufferObj(Buffer* pObj);
 
 /*
-Ãû³Æ: ÉèÖÃBuffer¶ÔÏóµÄÅäÖÃÏî
-²ÎÊı1: Buffer¶ÔÏó
-²ÎÊı2: Ã¿´ÎÉêÇëÄÚ´æÊ±µÄ´óĞ¡£¬ Ä¬ÈÏÖµ¼ûbuffer_config.h ALLOC_BUFFER_SIZE
-²ÎÊı3: ×î¶à¿ÉÒÔÉêÇëµÄbufferµÄÊıÁ¿, Ä¬ÈÏÖµÎª0£¬ ±íÊ¾²»ÏŞÖÆ
+åç§°: è®¾ç½®Bufferå¯¹è±¡çš„é…ç½®é¡¹
+å‚æ•°1: Bufferå¯¹è±¡
+å‚æ•°2: æ¯æ¬¡ç”³è¯·å†…å­˜æ—¶çš„å¤§å°ï¼Œ é»˜è®¤å€¼è§buffer_config.h ALLOC_BUFFER_SIZE
+å‚æ•°3: æœ€å¤šå¯ä»¥ç”³è¯·çš„bufferçš„æ•°é‡, é»˜è®¤å€¼ä¸º0ï¼Œ è¡¨ç¤ºä¸é™åˆ¶
 
 name: set config of Buffer object
 param 1: the Buffer object
@@ -51,11 +51,11 @@ param 3: the max times for alloc buffer. default value is 0, that mean no limit 
 void SetConfigOfBufferObj(Buffer* pObj, unsigned int nAllocBufferSize, unsigned int nMaxOfAllocBuffers);
 
 /*
-Ãû³Æ: Ìí¼ÓÊı¾İµ½Buffer¶ÔÏó
-²ÎÊı1: Buffer¶ÔÏó
-²ÎÊı2: Ìí¼ÓµÄÊı¾İ
-²ÎÊı3: Ìí¼ÓµÄÊı¾İµÄ³¤¶È
-·µ»ØÖµ:ÊÇ·ñÌí¼Ó³É¹¦
+åç§°: æ·»åŠ æ•°æ®åˆ°Bufferå¯¹è±¡
+å‚æ•°1: Bufferå¯¹è±¡
+å‚æ•°2: æ·»åŠ çš„æ•°æ®
+å‚æ•°3: æ·»åŠ çš„æ•°æ®çš„é•¿åº¦
+è¿”å›å€¼:æ˜¯å¦æ·»åŠ æˆåŠŸ
 
 name: add data to Buffer object
 param 1: the Buffer object
@@ -66,11 +66,11 @@ return value: return true on success, return false on error
 bool WriteDataToBuffer(Buffer* pObj, const char* pData, unsigned int nLen);
 
 /*
-Ãû³Æ: ¶ÁÈ¡Buffer¶ÔÏóÖĞµÄÊı¾İ
-²ÎÊı1: Buffer¶ÔÏó
-²ÎÊı2: ¶Á³öÊı¾İµÄ´æ·ÅµØÖ·
-²ÎÊı3: ¿ÉÒÔ¶ÁÈ¡µÄ×î´ó³¤¶È
-·µ»ØÖµ:¶ÁÈ¡µ½µÄÊı¾İ³¤¶È
+åç§°: è¯»å–Bufferå¯¹è±¡ä¸­çš„æ•°æ®
+å‚æ•°1: Bufferå¯¹è±¡
+å‚æ•°2: è¯»å‡ºæ•°æ®çš„å­˜æ”¾åœ°å€
+å‚æ•°3: å¯ä»¥è¯»å–çš„æœ€å¤§é•¿åº¦
+è¿”å›å€¼:è¯»å–åˆ°çš„æ•°æ®é•¿åº¦
 
 name: read data from Buffer object
 param 1: the Buffer object

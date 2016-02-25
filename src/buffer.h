@@ -1,8 +1,8 @@
 //-------------------------------------------------------------------------------------------------
 //	Created:	2015-8-24   16:05
 //	File Name:	buffer.h
-//	Author:		Eric(É³Ó¥)
-//	PS:			Èç¹û·¢ÏÖËµÃ÷´íÎó£¬´úÂë·ç¸ñ´íÎó£¬Âß¼­´íÎÊÌâ£¬Éè¼ÆÎÊÌâ£¬Çë¸æËßÎÒ¡£Ğ»Ğ»£¡
+//	Author:		Eric(æ²™é¹°)
+//	PS:			å¦‚æœå‘ç°è¯´æ˜é”™è¯¯ï¼Œä»£ç é£æ ¼é”™è¯¯ï¼Œé€»è¾‘é”™é—®é¢˜ï¼Œè®¾è®¡é—®é¢˜ï¼Œè¯·å‘Šè¯‰æˆ‘ã€‚è°¢è°¢ï¼
 //				Please to send me Email if you find any bug, better code design, etc.
 //  Email:		frederick.dang@gmail.com
 //	Purpose:	
@@ -21,7 +21,7 @@ void  default_free(char* pBuf);
 #endif // _DEBUG
 
 
-// Êı¾İ¿é
+// æ•°æ®å—
 class Block : public deque_node<Block>
 {
 public:
@@ -45,27 +45,27 @@ public:
 	void	Delete();
 
 public:
-	// ÔÚ¶àÏß³ÌÏÂÊ¹ÓÃ£¬¶Á²Ù×÷£¨Ğ´²Ù×÷£©±ØĞëÔÚÍ¬Ò»¸öÏß³Ì£¬¿ÉÒÔ±£Ö¤¶ÁĞ´µÄÊı¾İÒ»ÖÂ¡£	
+	// åœ¨å¤šçº¿ç¨‹ä¸‹ä½¿ç”¨ï¼Œè¯»æ“ä½œï¼ˆå†™æ“ä½œï¼‰å¿…é¡»åœ¨åŒä¸€ä¸ªçº¿ç¨‹ï¼Œå¯ä»¥ä¿è¯è¯»å†™çš„æ•°æ®ä¸€è‡´ã€‚	
 	/*
-	* »ñÈ¡¿É¶ÁÈ¡µÄÊı¾İ³¤¶È
+	* è·å–å¯è¯»å–çš„æ•°æ®é•¿åº¦
 	* character of buffer block
 	* get the size of data can be read from the block
 	*/
 	unsigned int GetCanReadDataSize();
 	/*
-	* ½«´æ´¢µÄÊı¾İ¶Áµ½pDestÖĞ£¬×î¶à¿É¶ÁnReadSize¡£·µ»ØÖµÎªÕæÊµ¶ÁÈ¡µÄ´óĞ¡
+	* å°†å­˜å‚¨çš„æ•°æ®è¯»åˆ°pDestä¸­ï¼Œæœ€å¤šå¯è¯»nReadSizeã€‚è¿”å›å€¼ä¸ºçœŸå®è¯»å–çš„å¤§å°
 	* read up to nReadSize bytes from block into the buffer starting at pDest
 	* return the number of bytes read
 	*/
 	unsigned int ReadData(char* pDest, unsigned int nReadSize);
 	/*
-	* »ñÈ¡blockÖĞ¿ÉÒÔ¶ÁÈ¡Êı¾İµÄ¿ªÊ¼Î»ÖÃ£¬ nReadSize·µ»Ø¿É¶ÁÈ¡µÄ³¤¶È
+	* è·å–blockä¸­å¯ä»¥è¯»å–æ•°æ®çš„å¼€å§‹ä½ç½®ï¼Œ nReadSizeè¿”å›å¯è¯»å–çš„é•¿åº¦
 	* if there is no free data, NULL is returned, otherwise, the point starting at block data that can be read is returned, 
 	* and nReadsize is set to the size of free data
 	*/
 	char* GetReadData(unsigned int& nReadSize);
 	/*
-	* ±ê¼ÇÒÑ¶ÁnSize³¤¶ÈµÄbuffer
+	* æ ‡è®°å·²è¯»nSizeé•¿åº¦çš„buffer
 	* mark block had been read into data of nSize bytes
 	*/
 	void MarkReadData(unsigned int nSize);
@@ -78,15 +78,15 @@ public:
 	/*
 	* write data into block
 	* write the pData into block, and size of pData is nSize, return value is the number of bytes has wrote into block	
-	* Ğ´ÈëÊı¾İ£¬·µ»ØÎªÕæÊµĞ´ÈëµÄ³¤¶È
+	* å†™å…¥æ•°æ®ï¼Œè¿”å›ä¸ºçœŸå®å†™å…¥çš„é•¿åº¦
 	*/
 	unsigned int WriteData(char* pData, unsigned int nSize);
 
 	/*
-	* GetWriteBuffer ºÍ MarkWriteData ĞèÒªÔÚÍ¬Ò»¸öÔ­×ÓÖĞµ÷ÓÃ, Á½ÕßÒ»ÆğÀàËÆÓÚWriteData
-	* 1: µ÷ÓÃGetWriteBuffer»ñÈ¡¿ÉĞ´Ö¸ÕëÒÔ¼°¿ÉĞ´³¤¶È
-	* 2: Ê¹ÓÃ¿ÉĞ´Ö¸Õë£¬ÏòbufferÖĞĞ´ÈëÊı¾İ
-	* 3: µ÷ÓÃMarkWriteData£¬±ê¼ÇÇ°ÃæĞ´Èë³¤¶ÈnSizeµÄÊı¾İ
+	* GetWriteBuffer å’Œ MarkWriteData éœ€è¦åœ¨åŒä¸€ä¸ªåŸå­ä¸­è°ƒç”¨, ä¸¤è€…ä¸€èµ·ç±»ä¼¼äºWriteData
+	* 1: è°ƒç”¨GetWriteBufferè·å–å¯å†™æŒ‡é’ˆä»¥åŠå¯å†™é•¿åº¦
+	* 2: ä½¿ç”¨å¯å†™æŒ‡é’ˆï¼Œå‘bufferä¸­å†™å…¥æ•°æ®
+	* 3: è°ƒç”¨MarkWriteDataï¼Œæ ‡è®°å‰é¢å†™å…¥é•¿åº¦nSizeçš„æ•°æ®
 	* GetWriteBuffer and MarkWriteData must call together, same as call WriteData
 	* call step 1: call GetWriteBuffer, get point of free data and the nFreeSize
 	* call step 2: write data into block by using free data point
@@ -100,16 +100,16 @@ public:
 	void MarkWriteData(unsigned int nSize);
 
 	/*
-	* Çå¿ÕÊı¾İ
+	* æ¸…ç©ºæ•°æ®
 	*/
 	void Clear();
 
 	/*
-	* Õû¸öbufferµÄÊı¾İÊÇ·ñ¶ÁÍê
+	* æ•´ä¸ªbufferçš„æ•°æ®æ˜¯å¦è¯»å®Œ
 	*/
 	bool IsReadAll() { return (m_pTail == m_pRead); };
 	/*
-	* Õû¸öbufferÒÑ¾­ÊÇ·ñĞ´Íê
+	* æ•´ä¸ªbufferå·²ç»æ˜¯å¦å†™å®Œ
 	*/
 	bool IsWriteAll() { return (m_pTail == m_pWrite); };
 
@@ -123,34 +123,34 @@ public:
 
 private:
 	/*	
-	* Êı¾İ´æ·ÅÇøÓò
+	* æ•°æ®å­˜æ”¾åŒºåŸŸ
 	* the buffer of block store data starting at pDest
 	*/
 	char*	m_pData;
 	/*
-	* ¶ÁÖ¸ÕëÎ»ÖÃ
+	* è¯»æŒ‡é’ˆä½ç½®
 	* the point for the data will be read
 	*/
 	char*	m_pRead;
 	/*
-	* Ğ´Ö¸ÕëÎ»ÖÃ
+	* å†™æŒ‡é’ˆä½ç½®
 	* the point for the data will be wrote
 	*/
 	char*	m_pWrite;
 	/*
-	* bufÖÕÖ¹Î»ÖÃ
+	* bufç»ˆæ­¢ä½ç½®
 	* the point is the end of m_pData
 	*/
 	char*	m_pTail;
 	/*
-	* buf´óĞ¡
+	* bufå¤§å°
 	* size of m_pData
 	*/
 	unsigned int m_nSize;
 
 	/*
 	* free m_pData
-	* buffer ÊÍ·Åº¯Êı
+	* buffer é‡Šæ”¾å‡½æ•°
 	*/
 	FreeBufferFun	m_fnFreeBuf;
 };
@@ -179,48 +179,48 @@ public:
 
 	// Read Data
 	/*
-	* »ñÈ¡¿É¶ÁÊı¾İµÄ´óĞ¡
+	* è·å–å¯è¯»æ•°æ®çš„å¤§å°
 	* get the size of data can be read
 	*/
 	unsigned int GetCanReadSize();
 	/*
-	* ´ÓbufferÖĞ¶ÁÈ¡Êı¾İ£¬×î´ó¿É¶ÁÈ¡nSize. ·µ»ØÖµÎª×Ü¶ÁÈ¡Öµ
+	* ä»bufferä¸­è¯»å–æ•°æ®ï¼Œæœ€å¤§å¯è¯»å–nSize. è¿”å›å€¼ä¸ºæ€»è¯»å–å€¼
 	*/
 	unsigned int ReadData(char* pDest, unsigned int nSize);
 	/*
-	* »ñÈ¡¿É¶ÁÊı¾İÖ¸ÕëÒÔ¼°¿É¶Á³¤¶È£¬·µ»ØÊı¾İÎªm_pReadBlockµÄ¿É¶ÁÊı¾İ¼°³¤¶È£¬¶ø²»ÊÇËùÓĞµÄ¿É¶ÁBlockµÄÊı¾İ
+	* è·å–å¯è¯»æ•°æ®æŒ‡é’ˆä»¥åŠå¯è¯»é•¿åº¦ï¼Œè¿”å›æ•°æ®ä¸ºm_pReadBlockçš„å¯è¯»æ•°æ®åŠé•¿åº¦ï¼Œè€Œä¸æ˜¯æ‰€æœ‰çš„å¯è¯»Blockçš„æ•°æ®
 	*/
 	char* GetReadData(unsigned int& nSize);
 	/*
-	* ±ê¼ÇÊı¾İÒÑ¶Á¡£Ö»±ê¼Çm_pReadBlock
+	* æ ‡è®°æ•°æ®å·²è¯»ã€‚åªæ ‡è®°m_pReadBlock
 	*/
 	void MarkReadData(unsigned int nSize);
 
 
 	// Write Data
 	/*
-	* ½«Êı¾İĞ´Èëbuffer,Èç¹ûblockÓĞÉÏÏŞ£¬ÔòÓĞ¿ÉÄÜĞ´Ê§°Ü
+	* å°†æ•°æ®å†™å…¥buffer,å¦‚æœblockæœ‰ä¸Šé™ï¼Œåˆ™æœ‰å¯èƒ½å†™å¤±è´¥
 	*/
 	bool WriteData(char* pData, unsigned int nSize);
 	/*
-	* »ñÈ¡¿ÉĞ´Ö¸ÕëÒÔ¼°³¤¶È£¬ÕâÀï·µ»ØµÄÖ»ÓĞm_pWriteBlockµÄ¿ÉĞ´Ö¸ÕëºÍ³¤¶È
+	* è·å–å¯å†™æŒ‡é’ˆä»¥åŠé•¿åº¦ï¼Œè¿™é‡Œè¿”å›çš„åªæœ‰m_pWriteBlockçš„å¯å†™æŒ‡é’ˆå’Œé•¿åº¦
 	*/
 	char* GetWriteBuffer(unsigned int& nSize);
 	/*
-	* ±ê¼ÇĞ´ÈëÁËnSizeµÄÊı¾İ£¬Ö»±ê¼Çm_pWriteBlock
-	* Èç¹ûÍêÈ«±ê¼Ç£¬m_pWriteBlockÖ¸ÏòÏÂÒ»¸ö£¬Èç¹ûÏÂÒ»¸öblockÊÇm_pReadBlock£¬
-	* ÔòĞèÒª´´½¨Ò»¸öblock£¬½«m_pWriteBlockÖ¸ÏòĞÂ½¨µÄblock£¬Èç¹û´´½¨Ê§°ÜÔò·µ»Øflase
+	* æ ‡è®°å†™å…¥äº†nSizeçš„æ•°æ®ï¼Œåªæ ‡è®°m_pWriteBlock
+	* å¦‚æœå®Œå…¨æ ‡è®°ï¼Œm_pWriteBlockæŒ‡å‘ä¸‹ä¸€ä¸ªï¼Œå¦‚æœä¸‹ä¸€ä¸ªblockæ˜¯m_pReadBlockï¼Œ
+	* åˆ™éœ€è¦åˆ›å»ºä¸€ä¸ªblockï¼Œå°†m_pWriteBlockæŒ‡å‘æ–°å»ºçš„blockï¼Œå¦‚æœåˆ›å»ºå¤±è´¥åˆ™è¿”å›flase
 	*/
 	bool MarkWriteData(unsigned int nSize);
 
 private:
 	/*
-	* ´´½¨µÚÒ»¸öblock
+	* åˆ›å»ºç¬¬ä¸€ä¸ªblock
 	*/
 	void Init();
 
 	/*
-	* ´´½¨Ò»¸öĞÂµÄblock, Ö»ÓĞÔÚĞ´µÄÊ±ºò²Å»á´´½¨
+	* åˆ›å»ºä¸€ä¸ªæ–°çš„block, åªæœ‰åœ¨å†™çš„æ—¶å€™æ‰ä¼šåˆ›å»º
 	*/
 	Block*	NewBlock();
 
@@ -237,24 +237,24 @@ public:
 
 public:
 	/*
-	* ÕıÔÚ¶ÁµÄblock
+	* æ­£åœ¨è¯»çš„block
 	*/
 	Block*		m_pReadBlock;
 	/*
-	* ÕıÔÚĞ´µÄblock
+	* æ­£åœ¨å†™çš„block
 	*/
 	Block*		m_pWriteBlock;
 
 	/*
-	* BlockµÄÊıÁ¿
+	* Blockçš„æ•°é‡
 	*/
 	unsigned int m_nBlockCount;
 	/*
-	* BlockµÄÉÏÏŞ, 0 ±íÊ¾²»×öÏŞÖÆ
+	* Blockçš„ä¸Šé™, 0 è¡¨ç¤ºä¸åšé™åˆ¶
 	*/
 	unsigned int m_nBlockLimit;
 	/*
-	* blockÖĞÊı¾İ¿éµÄ´óĞ¡
+	* blockä¸­æ•°æ®å—çš„å¤§å°
 	*/
 	unsigned int m_nBlockSize;
 	/*
