@@ -59,7 +59,7 @@ function otherVector3Funs:lengthSqr()
 end
 
 function otherVector3Funs:toStr()
-	return string.format("x = %f, y = %f, z = %f", v1.x, v1.y, v1.z)
+	return string.format("x = %f, y = %f, z = %f", self.x, self.y, self.z)
 end
 
 function otherVector3Funs:printf()
