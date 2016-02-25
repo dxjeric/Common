@@ -14,6 +14,7 @@
 
 #include "liblog.h"
 #include "buffer.h"
+#include "common_sys_fun.h"
 
 #ifdef linux 
 // 字符格式化
@@ -21,13 +22,11 @@
 // 线程开启
 #define _THANDLE pthread_t
 #define createthread(threadid, routine_addr, param) pthread_create(&threadid, NULL, routine_addr, (void*)param)
-#define Sleep(n) usleep(n)
 #endif // linux
 
 #ifdef _WIN32
 #define _THANDLE HANDLE
 #define createthread(threadid, routine_addr, param) threadid = CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)routine_addr, (LPVOID)param, NULL, NULL)
-
 #endif
 
 #define READ_FILE_PATH	"E:\\ceshi.txt"
@@ -53,14 +52,14 @@ void* WorkThread(LPWORD pParam)
 		int nReadLen = fread(data, 1, nRand, fRead);
 
 		if (nReadLen > 0)
-			WriteLog(FC_RED, STDOUT_FILE_HANDLE, data);
+			//WriteLog(FC_RED, STDOUT_FILE_HANDLE, data);
 
-		if (!pBuffer->WriteData(data, nReadLen))
+		if (nReadLen > 0 && !pBuffer->WriteData(data, nReadLen))
 		{
 			WriteLog(FC_RED, STDOUT_FILE_HANDLE, "pBuffer->WriteData failed!");
 			break;
 		}
-		//Sleep(55);
+		csf_sleep(1000);
 	}
 
 	return ((void*)0);
@@ -80,7 +79,7 @@ int main()
 {
 	_THANDLE tindex;
 
-	Buffer buf(0, 100);
+	Buffer buf(0, 500);
 #ifdef linux
 	int ret = createthread(tindex, WorkThread, &buf);
 	if (ret != 0)
@@ -115,10 +114,9 @@ int main()
 			nLen = buf.ReadData(readbuf, 100);
 			fwrite(readbuf, 1, nLen, fWrite);
 			fflush(fWrite);
-			WriteLog(FC_GREEN, STDOUT_FILE_HANDLE, readbuf);
-
+			//WriteLog(FC_GREEN, STDOUT_FILE_HANDLE, readbuf);
 		}
-		// Sleep(33);
+		csf_sleep(1000);
 	}
 
 	return 0;

@@ -51,4 +51,4 @@ test/log_config.h
 test/main
 test/main.o
 test/*.log
-
+frameworks/runtime-src/proj.win32/lua.vcxproj.user

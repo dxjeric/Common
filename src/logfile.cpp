@@ -8,18 +8,12 @@
 //	Purpose:	
 //-------------------------------------------------------------------------------------------------
 #include <stdarg.h>
-
-#ifdef _WIN32
-#include <time.h>
-#endif
-
 #ifdef linux
-#include <sys/time.h>
 #include <errno.h>
-
 // function backtrace is defined in execinfo.h
 #include <execinfo.h>
 #endif
+#include "common_sys_fun.h"
 
 #include "logfile.h"
 
@@ -72,16 +66,6 @@ static const char* FondColorInfo[] =
 #define RecoverConsoleAttr(fc)	if(fc != FC_DEFAULT) { printf("\e[0m"); }
 #endif	// linux
 //-------------------------------------------------------------------------------------------------
-#ifdef _WIN32
-#define _gettime(tms, tt) localtime_s(tms, tt)
-#endif // _WIN32
-
-#ifdef linux
-#define _vsnprintf vsnprintf
-#define _gettime(tms, tt) localtime_r(tt, tms)
-
-#endif	// linux
-//-------------------------------------------------------------------------------------------------
 int FormatLogInfo(char* szDest, const char* szFormat, va_list vlArgs)
 {
 	if (strlen(szFormat) >= (size_t)LOG_INFO_MAX_LEN)
@@ -92,8 +76,8 @@ int FormatLogInfo(char* szDest, const char* szFormat, va_list vlArgs)
 	time_t tt;
 	time(&tt);
 	struct tm tms;
-	_gettime(&tms, &tt);
-	
+	csf_gettime(&tms, &tt);
+
 	pDest += sprintf(pDest, "(%04d/%02d/%02d %02d:%02d:%02d) ", tms.tm_year + 1900, tms.tm_mon, tms.tm_mday, tms.tm_hour, tms.tm_min, tms.tm_sec);
 	nMaxLen -= strlen(szDest);
 	int len = _vsnprintf(pDest, nMaxLen, szFormat, vlArgs);
@@ -107,6 +91,7 @@ int FormatLogInfo(char* szDest, const char* szFormat, va_list vlArgs)
 
 	return pDest - szDest - 1;	// 长度不包含'\0'
 }
+
 void WriteInfoToStdout(FontColor fc, const char* szStr)
 {
 	SetConsoleAttr(fc);
