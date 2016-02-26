@@ -14,12 +14,18 @@ vector3Meta.__sub = function(v1, v2)
 end
 -- vector3 * number
 vector3Meta.__mul = function(v1, f)
-	if type(f) ~= "number" then return v1 end
+	if type(f) ~= "number" then
+		error("vector3 mul secode param is not number, e.g: vector3 * number") 
+		return
+	end
 	return vector3(v1.x * f, v1.y * f, v1.z * f)
 end
 -- vector3 / number
 vector3Meta.__div = function(v1, f)
-	if type(f) ~= "number" then return v1 end
+	if type(f) ~= "number" then
+		error("vector3 mul secode param is not number, e.g: vector3 * number")
+		return
+	end
 	return vector3(v1.x / f, v1.y / f, v1.z / f)
 end
 -- .. print 方便调试
